@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit a Ride</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body background="{{ url_for('static', filename='ridebg.jpg') }}">
+    <div class="container">
+        <div class="nav">
+            <h1 class="text-center">Hello, {{users.first_name}}!</h1>
+            <a href="/logout" class="btn btn-light">Logout</a>
+        </div>
+        <div class="middle-row">
+        </div>
+        <div class="showbutton">
+            <a href="/dashboard" class="btn btn-warning">Dashboard</a>
+        </div>
+        <div class="bottom-row">
+            <form action="/update/bike" method="post" enctype="multipart/form-data" class="col-11 p-4 my-4 bg-dark text-light mx-auto">
+                <h2 class="text-warning">Edit Ride</h2>
+                {% with messages = get_flashed_messages(category_filter=['bike']) %} 
+                    {% if messages %} 
+                    <div class="alert alert-danger" role="alert">
+                        <strong>Flash AHH!</strong>
+                            {% for message in messages %} 
+                            <p>{{message}}</p>
+                            {% endfor %} 
+                    </div>
+                    {% endif %} 
+                {% endwith %} 
+
+                <div class="d-flex justify-content-between col-9">
+                    <input type="hidden" name="id" value={{edit.id}}>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="biketype">Make/Model:</label>
+                            <input type="text" name="biketype" class="form-control" value="{{edit.biketype}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Tell us about your ride:</label>
+                            <textarea name="description" cols="30" rows="5" class="form-control">{{edit.description}}</textarea>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="bikepic">Upload a photo:</label>
+                            <input type="text" name="bikepic" accept="image/*" class="form-control" value="edit.bikepic">
+                        </div>
+                        <br>
+                        <input type="submit" value="Upload" class="btn btn-warning">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
